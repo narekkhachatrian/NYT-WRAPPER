@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Infrastructure\HttpClients;
@@ -10,42 +9,65 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
 use Psr\Log\LoggerInterface;
 
-final class NytBooksApiClient
+final readonly class NytBooksApiClient
 {
-    private const BASE_URL = 'https://api.nytimes.com/svc/books/v3';
-
     public function __construct(
-        private readonly string          $apiKey,
-        private readonly LoggerInterface $logger,
-        private readonly int             $timeoutSeconds = 5,
-        private readonly int             $retries = 3,
-        private readonly int             $retryDelayMs = 200
+        private string          $apiKey,
+        private LoggerInterface $logger,
+        private string          $baseUrl,
+        private string          $version,
+        private int             $timeoutSeconds,
+        private int             $retries,
+        private int             $retryDelayMs,
     )
     {
     }
 
     /**
- * @param array<string,string|int> $query
+     * @param  array<string,string|int>  $query
+     * @return array<string,mixed>
      * @throws RequestException|ConnectionException
      */
     public function get(string $path, array $query = []): array
     {
         $start = microtime(true);
 
-        /**
+        try {
+            /**
  * @var Response $response
 */
-        $response = Http::retry($this->retries, $this->retryDelayMs)
-            ->timeout($this->timeoutSeconds)
-            ->get(self::BASE_URL . '/' . ltrim($path, '/'), array_merge(
-                $query,
-                ['api-key' => $this->apiKey]
-            ))
-            ->throw();
+            $response = Http::retry(
+                $this->retries,
+                $this->retryDelayMs,
+                fn($exception, $request) =>
+                    $exception instanceof ConnectionException
+                    || (
+                        $exception instanceof RequestException
+                        && $exception->response?->serverError()
+                    )
+            )
+                ->timeout($this->timeoutSeconds)
+                ->get(
+                    rtrim($this->baseUrl, '/') . '/' . trim($this->version, '/') . '/' . ltrim($path, '/'),
+                    array_merge($query, ['api-key' => $this->apiKey])
+                )
+                ->throw();
 
-        $ms = (int) ((microtime(true) - $start) * 1000);
-        $this->logger->info('NYT API call', ['path' => $path, 'ms' => $ms]);
+            $ms = (int) ((microtime(true) - $start) * 1000);
+            $this->logger->info('NYT API call', [
+                'path' => $path,
+                'ms'   => $ms,
+            ]);
 
-        return $response->json();
+            return $response->json() ?? [];
+        } catch (ConnectionException | RequestException $e) {
+            $this->logger->error('NYT API call failed after retries', [
+                'path'      => $path,
+                'query'     => $query,
+                'message'   => $e->getMessage(),
+                'exception' => $e,
+            ]);
+            throw $e;
+        }
     }
 }

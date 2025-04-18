@@ -58,7 +58,7 @@ class ResourceSerializationTest extends TestCase
         );
         $arr = (new ListSnapshotResource($snap))->toArray(null);
 
-        $this->assertSame('foo',     $arr['results']['list_name']);
+        $this->assertSame('foo', $arr['results']['list_name']);
         $this->assertSame('FooList', $arr['results']['display_name']);
     }
 
@@ -75,8 +75,8 @@ class ResourceSerializationTest extends TestCase
         );
         $arr = (new ReviewResource($rev))->toArray(null);
 
-        $this->assertSame('http://url',             $arr['book_review_link'] ?? $arr['url'] ?? $arr['book_review_link'] ?? $arr['url']);
-        $this->assertSame('BookTitle',              $arr['book_title']   ?? $arr['bookTitle']);
-        $this->assertSame(['9780307476463'],        $arr['isbn13']       ?? $arr['isbn13']);
+        $this->assertSame('http://url', $arr['book_review_link'] ?? $arr['url'] ?? $arr['book_review_link'] ?? $arr['url']);
+        $this->assertSame('BookTitle',$arr['book_title']   ?? $arr['bookTitle']);
+        $this->assertSame(['9780307476463'], $arr['isbn13'] ?? $arr['isbn13']);
     }
 }

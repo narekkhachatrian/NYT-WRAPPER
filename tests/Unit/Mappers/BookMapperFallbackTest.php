@@ -3,7 +3,6 @@ namespace Tests\Unit\Mappers;
 
 use App\Infrastructure\Mappers\BookMapper;
 use PHPUnit\Framework\TestCase;
-use App\Domain\Books\ValueObjects\ISBN;
 use App\Domain\Books\Entities\Book;
 
 class BookMapperFallbackTest extends TestCase

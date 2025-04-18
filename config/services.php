@@ -36,7 +36,34 @@ return [
     ],
 
     'nyt' => [
-        'key' => env('NYT_API_KEY'),
+        /*
+          |--------------------------------------------------------------------------
+          | NYT Books API Credentials & Version
+          |--------------------------------------------------------------------------
+          */
+        'key'         => env('NYT_API_KEY', ''),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Base URL & Version
+        |--------------------------------------------------------------------------
+        */
+        'base_url'    => env('NYT_API_BASE_URL', 'https://api.nytimes.com/svc/books'),
+        'version'     => env('NYT_API_VERSION', 'v3'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | HTTP Client Defaults
+        |--------------------------------------------------------------------------
+        |
+        | timeout_seconds   — how long to wait for a response before giving up
+        | retries           — how many times to retry on network/server errors
+        | retry_delay_ms    — how long (ms) to wait between retry attempts
+        |
+        */
+        'timeout_seconds'  => env('NYT_HTTP_TIMEOUT',    5),
+        'retries'          => env('NYT_HTTP_RETRIES',    3),
+        'retry_delay_ms'   => env('NYT_HTTP_RETRY_DELAY', 200),
     ],
 
 ];
