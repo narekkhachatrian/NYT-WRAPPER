@@ -36,10 +36,8 @@ A Laravel‑based JSON API wrapper around the New York Times Books API
    ```
 
 6. **Test your first endpoint**
-   Open in browser or Postman:
-   ```
-http://localhost:18080/api/v1/history
-
+   Open in browser or Postman: 
+   http://localhost:18080/api/v1/history?author=Stephen%20King
 ---
 
 ## 🏛️ Architecture Overview
