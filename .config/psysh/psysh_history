@@ -1,0 +1,18 @@
+$repo = app(\App\Domain\Books\Repositories\ListRepositoryInterface::class);
+$names = $repo->allNames();
+count($names);
+clear
+php artisan tinker <<'PHP'
+cache()->put('nyt:test', 'pong', 600);
+echo cache('nyt:test')."\n";
+PHP
+php artisan tinker
+cache()->put('nyt:test', 'pong', 600);
+cache('nyt:test');
+exit
+cache()->put('nyt:test', 'pong', 600);
+exit
+cache()->put('nyt:test', 'pong', 600);
+exit
+cache()->put('nyt:test', 'pong', 600);
+exit

@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+    php:
+        build: .
+        image: nyt-wrapper-php
+        container_name: nyt-wrapper-php
+        restart: unless-stopped
+        expose: ["9080"]
+        volumes:
+            - .:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks: [appnet]
+
+    web:
+        image: nginx:alpine
+        container_name: nyt-wrapper-nginx
+        depends_on: [php]
+        ports:
+            - "18080:80"          # browser → http://localhost:18080
+        volumes:
+            - .:/var/www
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks: [appnet]
+
+    mysql:
+        image: mysql:8
+        container_name: nyt-wrapper-mysql
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+        ports: ["13306:3306"]
+        volumes: [dbdata:/var/lib/mysql]
+        networks: [appnet]
+
+    redis:
+        image: redis:7-alpine
+        container_name: nyt-wrapper-redis
+        restart: unless-stopped
+        ports: ["16379:6379"]
+        volumes: [redisdata:/data]
+        networks: [appnet]
+
+    redisinsight:
+        image: redis/redisinsight:latest   # v2 – exposes 5540
+        platform: linux/arm64              # <‑‑ keep for M‑series Macs; delete on Intel
+        container_name: nyt-wrapper-redisinsight
+        depends_on: [redis]
+        restart: unless-stopped
+        networks: [appnet]
+        ports:
+            - "18001:5540"                   # host → container 5540
+        environment:                       # optional – auto‑connect screen
+            RI_APP_RAM_MB: 256               # smaller footprint
+
+networks:
+    appnet:
+        driver: bridge
+
+volumes:
+    dbdata:
+    redisdata:
