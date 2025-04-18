@@ -8,12 +8,24 @@ final class ListSnapshotHttpRequest extends FormRequest
 {
     public function authorize(): bool { return true; }
 
+
     public function rules(): array
     {
         return [
-            'list'            => ['required','string','regex:/^[a-z0-9\-]+$/'],
-            'published_date'  => ['sometimes','regex:/^(current|\d{4}-\d{2}-\d{2})$/'],
-            'offset'          => ['sometimes','integer','min:0','multiple_of:20'],
+            'list'           => ['required', 'regex:/^[a-z0-9\-]+$/'],
+            'published_date' => [
+                'sometimes',
+                function($attribute, $value, $fail) {
+                    if ($value === 'current') {
+                        return;
+                    }
+                    $dt = \DateTime::createFromFormat('Y-m-d', $value);
+                    if (! $dt || $dt->format('Y-m-d') !== $value) {
+                        $fail("{$attribute} must be 'current' or a valid date (YYYY-MM-DD).");
+                    }
+                },
+            ],
+            'offset'         => ['sometimes', 'integer', 'min:0', 'multiple_of:20'],
         ];
     }
 
@@ -24,6 +36,6 @@ final class ListSnapshotHttpRequest extends FormRequest
 
     public function validatedPublishedDate(): string
     {
-        return $this->input('published_date', 'current');
+        return $this->validated()['published_date'] ?? 'current';
     }
 }

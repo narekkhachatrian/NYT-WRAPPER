@@ -8,14 +8,19 @@ final class ReviewSearchHttpRequest extends FormRequest
 {
     public function authorize(): bool { return true; }
 
+
     public function rules(): array
     {
         return [
-            'author' => ['sometimes','string'],
-            'title'  => ['sometimes','string'],
-            'isbn'   => ['sometimes','regex:/^\d{10}(\d{3})?$/'],
+            'isbn'   => [
+                'required_without_all:author,title',
+                'regex:/^(?:\d{13}|\d{9}[0-9Xx])$/'
+            ],
+            'title'  => ['required_without_all:isbn,author', 'string'],
+            'author' => ['required_without_all:isbn,title', 'string'],
         ];
     }
+
 
     public function prepareForValidation(): void
     {

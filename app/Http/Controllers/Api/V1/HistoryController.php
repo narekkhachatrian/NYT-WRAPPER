@@ -24,10 +24,12 @@ class HistoryController extends Controller
         $resp = $this->uc->execute($dto);
 
         return response()->json([
-            'status'      => 'OK',
-            'num_results' => $resp->total,
-            'results'     => BookResource::collection($resp->books),
-            'offset'      => $resp->offset->value(),
+            'data' => [
+                'status'      => 'OK',
+                'num_results' => $resp->total,
+                'offset'      => $resp->offset->value(),
+                'results'     => BookResource::collection($resp->books),
+            ],
         ]);
     }
 }

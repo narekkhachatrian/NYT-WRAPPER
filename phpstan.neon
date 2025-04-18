@@ -1,0 +1,16 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    level: 7           # choose 0–maximum (8 or 9)
+    paths:
+        - app
+        - routes
+        - database
+    autoload_files:
+        - bootstrap/autoload.php
+    ignoreErrors:
+        # if you have some dynamic calls you want to suppress
+        - '#Call to an undefined method Illuminate\\Support\\Facades\\\w+.*#'
+    checkMissingIterableValueType: false
+    checkMissingVarTagType: false
