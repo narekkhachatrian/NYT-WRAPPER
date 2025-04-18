@@ -13,7 +13,9 @@ use Illuminate\Http\Client\RequestException;
 
 final readonly class NytReviewRepository implements ReviewRepositoryInterface
 {
-    public function __construct(private NytBooksApiClient $client) {}
+    public function __construct(private NytBooksApiClient $client)
+    {
+    }
 
     /**
      * @throws RequestException

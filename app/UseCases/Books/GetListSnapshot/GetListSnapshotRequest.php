@@ -10,5 +10,7 @@ final class GetListSnapshotRequest
         public string $list,            // "hardcover-fiction"
         public string $publishedDate,   // "current" or Y-m-d
         public int    $offset           // 0,20,40…
-    ) {}
+    )
+    {
+    }
 }

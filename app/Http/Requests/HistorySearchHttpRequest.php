@@ -6,7 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class HistorySearchHttpRequest extends FormRequest
 {
-    public function authorize(): bool { return true; }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
     public function rules(): array
     {
@@ -15,7 +18,7 @@ final class HistorySearchHttpRequest extends FormRequest
             'title'     => ['required_without_all:author,isbn.*', 'string'],
             'isbn.*'    => [
                 'required_without_all:author,title',
-                'regex:/^(?:\d{13}|\d{9}[0-9Xx])$/'
+                'regex:/^(?:\d{13}|\d{9}[0-9Xx])$/',
             ],
             'offset'    => ['sometimes', 'integer', 'min:0', 'multiple_of:20'],
         ];
@@ -24,7 +27,7 @@ final class HistorySearchHttpRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-        if (!$this->hasAny(['author','title','isbn'])) {
+        if (!$this->hasAny(['author', 'title', 'isbn'])) {
             $this->merge(['author' => '']);
         }
     }

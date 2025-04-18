@@ -9,7 +9,9 @@ use App\Domain\Books\ValueObjects\Offset;
 
 final readonly class SearchHistoryInteractor
 {
-    public function __construct(private HistoryRepositoryInterface $repo) {}
+    public function __construct(private HistoryRepositoryInterface $repo)
+    {
+    }
 
     public function execute(SearchHistoryRequest $r): SearchHistoryResponse
     {

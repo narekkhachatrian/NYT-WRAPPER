@@ -10,5 +10,7 @@ final class GetReviewsRequest
         public ?string $author,
         public ?string $title,
         public ?string $isbn
-    ) {}
+    )
+    {
+    }
 }

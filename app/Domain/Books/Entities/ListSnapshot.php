@@ -14,7 +14,9 @@ use Carbon\CarbonImmutable;
  */
 final readonly class ListSnapshot
 {
-    /** @param Book[] $books */
+    /**
+ * @param Book[] $books
+*/
     public function __construct(
         private ListIdentifier  $listId,
         private string          $displayName,
@@ -23,19 +25,44 @@ final readonly class ListSnapshot
         private array           $books,
         private int             $totalResults,
         private Offset          $offset,
-    ) {}
+    )
+    {
+    }
 
-    public function listId(): ListIdentifier { return $this->listId; }
-    public function displayName(): string { return $this->displayName; }
-    public function bestsellersDate(): CarbonImmutable { return $this->bestsellersDate; }
-    public function publishedDate(): CarbonImmutable { return $this->publishedDate; }
+    public function listId(): ListIdentifier
+    {
+        return $this->listId;
+    }
+    public function displayName(): string
+    {
+        return $this->displayName;
+    }
+    public function bestsellersDate(): CarbonImmutable
+    {
+        return $this->bestsellersDate;
+    }
+    public function publishedDate(): CarbonImmutable
+    {
+        return $this->publishedDate;
+    }
 
-    /** @return Book[] */
-    public function books(): array { return $this->books; }
+    /**
+ * @return Book[]
+*/
+    public function books(): array
+    {
+        return $this->books;
+    }
 
-    public function totalResults(): int { return $this->totalResults; }
+    public function totalResults(): int
+    {
+        return $this->totalResults;
+    }
 
-    public function offset(): Offset { return $this->offset; }
+    public function offset(): Offset
+    {
+        return $this->offset;
+    }
 
     public function hasMore(): bool
     {

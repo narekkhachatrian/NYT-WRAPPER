@@ -13,7 +13,9 @@ use Illuminate\Http\Client\RequestException;
 
 final readonly class NytHistoryRepository implements HistoryRepositoryInterface
 {
-    public function __construct(private NytBooksApiClient $client) {}
+    public function __construct(private NytBooksApiClient $client)
+    {
+    }
 
     /**
      * @throws RequestException

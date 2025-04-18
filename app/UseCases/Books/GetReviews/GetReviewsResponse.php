@@ -6,8 +6,12 @@ namespace App\UseCases\Books\GetReviews;
 
 use App\Domain\Books\Entities\Review;
 
-/** @property Review[] $reviews */
+/**
+ * @property Review[] $reviews
+*/
 final class GetReviewsResponse
 {
-    public function __construct(public array $reviews) {}
+    public function __construct(public array $reviews)
+    {
+    }
 }

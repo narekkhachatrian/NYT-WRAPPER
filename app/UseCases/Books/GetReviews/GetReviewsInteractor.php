@@ -8,7 +8,9 @@ use App\Domain\Books\Repositories\ReviewRepositoryInterface;
 
 final readonly class GetReviewsInteractor
 {
-    public function __construct(private ReviewRepositoryInterface $repo) {}
+    public function __construct(private ReviewRepositoryInterface $repo)
+    {
+    }
 
     public function execute(GetReviewsRequest $r): GetReviewsResponse
     {

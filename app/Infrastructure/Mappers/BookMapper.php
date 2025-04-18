@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\Mappers;
 
 use App\Domain\Books\Entities\Book;
-use App\Domain\Books\ValueObjects\{ISBN, Title, AuthorName};
+use App\Domain\Books\ValueObjects\ISBN;
+use App\Domain\Books\ValueObjects\Title;
+use App\Domain\Books\ValueObjects\AuthorName;
 
 final class BookMapper
 {
@@ -32,13 +34,13 @@ final class BookMapper
         // 3) construct the Book using Title & AuthorName VOs
         return new Book(
             $primary,
-            new Title($raw['title']       ?? ''),
+            new Title($raw['title'] ?? ''),
             new AuthorName($raw['author'] ?? ''),
-            $raw['description']           ?? null,
-            $raw['rank']                  ?? null,
-            $raw['weeks_on_list']         ?? null,
-            $raw['publisher']             ?? null,
-            $raw['amazon_product_url']    ?? null,
+            $raw['description'] ?? null,
+            $raw['rank'] ?? null,
+            $raw['weeks_on_list'] ?? null,
+            $raw['publisher'] ?? null,
+            $raw['amazon_product_url'] ?? null,
             $allIsbns
         );
     }

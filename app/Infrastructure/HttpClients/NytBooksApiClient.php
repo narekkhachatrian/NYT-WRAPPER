@@ -20,16 +20,21 @@ final class NytBooksApiClient
         private readonly int             $timeoutSeconds = 5,
         private readonly int             $retries = 3,
         private readonly int             $retryDelayMs = 200
-    ) {}
+    )
+    {
+    }
 
-    /** @param array<string,string|int> $query
+    /**
+ * @param array<string,string|int> $query
      * @throws RequestException|ConnectionException
      */
     public function get(string $path, array $query = []): array
     {
         $start = microtime(true);
 
-        /** @var Response $response */
+        /**
+ * @var Response $response
+*/
         $response = Http::retry($this->retries, $this->retryDelayMs)
             ->timeout($this->timeoutSeconds)
             ->get(self::BASE_URL . '/' . ltrim($path, '/'), array_merge(

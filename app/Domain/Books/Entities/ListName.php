@@ -18,11 +18,28 @@ final readonly class ListName
         private CarbonImmutable $oldestDate,
         private CarbonImmutable $newestDate,
         private string          $updateFrequency
-    ) {}
+    )
+    {
+    }
 
-    public function id(): ListIdentifier { return $this->id; }
-    public function displayName(): string { return $this->displayName; }
-    public function oldestDate(): CarbonImmutable { return $this->oldestDate; }
-    public function newestDate(): CarbonImmutable { return $this->newestDate; }
-    public function updateFrequency(): string { return $this->updateFrequency; }
+    public function id(): ListIdentifier
+    {
+        return $this->id;
+    }
+    public function displayName(): string
+    {
+        return $this->displayName;
+    }
+    public function oldestDate(): CarbonImmutable
+    {
+        return $this->oldestDate;
+    }
+    public function newestDate(): CarbonImmutable
+    {
+        return $this->newestDate;
+    }
+    public function updateFrequency(): string
+    {
+        return $this->updateFrequency;
+    }
 }

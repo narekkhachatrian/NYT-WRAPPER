@@ -7,7 +7,9 @@ use App\Domain\Books\Entities\ListSnapshot;
 
 class ListSnapshotResource extends JsonResource
 {
-    /** @var ListSnapshot */
+    /**
+ * @var ListSnapshot
+*/
     public $resource;
 
     public function toArray($req): array
@@ -18,7 +20,7 @@ class ListSnapshotResource extends JsonResource
             'results'      => [
                 'list_name'       => $this->resource->listId()->value(),
                 'display_name'    => $this->resource->displayName(),
-                'bestsellers_date'=> $this->resource->bestsellersDate()->toDateString(),
+                'bestsellers_date' => $this->resource->bestsellersDate()->toDateString(),
                 'published_date'  => $this->resource->publishedDate()->toDateString(),
                 'books'           => BookResource::collection($this->resource->books()),
             ],

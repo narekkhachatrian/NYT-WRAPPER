@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Mappers;
 
 use App\Domain\Books\Entities\ListSnapshot;
-use App\Domain\Books\ValueObjects\{ListIdentifier, Offset};
+use App\Domain\Books\ValueObjects\ListIdentifier;
+use App\Domain\Books\ValueObjects\Offset;
 use Carbon\CarbonImmutable;
 
 final class ListSnapshotMapper
@@ -19,7 +20,8 @@ final class ListSnapshotMapper
         array          $root,
         Offset         $offset,
         ListIdentifier $listId
-    ): ListSnapshot {
+    ): ListSnapshot
+    {
         $results = $root['results'] ?? [];
 
         if (isset($results['books'])) {
@@ -44,7 +46,7 @@ final class ListSnapshotMapper
             $listId,
             $meta['display_name'] ?? '',
             CarbonImmutable::parse($meta['bestsellers_date'] ?? 'now'),
-            CarbonImmutable::parse($meta['published_date']   ?? 'now'),
+            CarbonImmutable::parse($meta['published_date'] ?? 'now'),
             $books,
             $root['num_results'] ?? count($books),
             $offset

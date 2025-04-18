@@ -8,5 +8,7 @@ use App\Domain\Books\Entities\ListSnapshot;
 
 final class GetListSnapshotResponse
 {
-    public function __construct(public ListSnapshot $snapshot) {}
+    public function __construct(public ListSnapshot $snapshot)
+    {
+    }
 }

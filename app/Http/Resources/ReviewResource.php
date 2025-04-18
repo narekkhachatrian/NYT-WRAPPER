@@ -7,7 +7,9 @@ use App\Domain\Books\Entities\Review;
 
 class ReviewResource extends JsonResource
 {
-    /** @var Review */
+    /**
+ * @var Review
+*/
     public $resource;
 
     public function toArray($req): array

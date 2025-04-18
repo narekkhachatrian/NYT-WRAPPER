@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\UseCases\Books\GetListSnapshot;
 
 use App\Domain\Books\Repositories\ListRepositoryInterface;
-use App\Domain\Books\ValueObjects\{ListIdentifier,NytDate,Offset};
+use App\Domain\Books\ValueObjects\ListIdentifier;
+use App\Domain\Books\ValueObjects\NytDate;
+use App\Domain\Books\ValueObjects\Offset;
 
 final class GetListSnapshotInteractor
 {
-    public function __construct(private ListRepositoryInterface $repo) {}
+    public function __construct(private ListRepositoryInterface $repo)
+    {
+    }
 
     public function execute(GetListSnapshotRequest $r): GetListSnapshotResponse
     {

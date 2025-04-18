@@ -6,7 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class ReviewSearchHttpRequest extends FormRequest
 {
-    public function authorize(): bool { return true; }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
 
     public function rules(): array
@@ -14,7 +17,7 @@ final class ReviewSearchHttpRequest extends FormRequest
         return [
             'isbn'   => [
                 'required_without_all:author,title',
-                'regex:/^(?:\d{13}|\d{9}[0-9Xx])$/'
+                'regex:/^(?:\d{13}|\d{9}[0-9Xx])$/',
             ],
             'title'  => ['required_without_all:isbn,author', 'string'],
             'author' => ['required_without_all:isbn,title', 'string'],
@@ -24,7 +27,7 @@ final class ReviewSearchHttpRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-        if (!$this->hasAny(['author','title','isbn'])) {
+        if (!$this->hasAny(['author', 'title', 'isbn'])) {
             $this->merge(['author' => '']);
         }
     }

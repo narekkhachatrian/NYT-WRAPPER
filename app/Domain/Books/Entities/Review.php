@@ -14,7 +14,9 @@ use Carbon\CarbonImmutable;
  */
 readonly class Review
 {
-    /** @param ISBN[] $isbn13 */
+    /**
+ * @param ISBN[] $isbn13
+*/
     public function __construct(
         private string          $url,
         private CarbonImmutable $publicationDate,
@@ -23,15 +25,40 @@ readonly class Review
         private AuthorName      $bookAuthor,
         private string          $summary,
         private array           $isbn13,
-    ) {}
+    )
+    {
+    }
 
-    public function url(): string { return $this->url; }
-    public function publicationDate(): CarbonImmutable { return $this->publicationDate; }
-    public function byline(): string { return $this->byline; }
-    public function bookTitle(): Title { return $this->bookTitle; }
-    public function bookAuthor(): AuthorName { return $this->bookAuthor; }
-    public function summary(): string { return $this->summary; }
+    public function url(): string
+    {
+        return $this->url;
+    }
+    public function publicationDate(): CarbonImmutable
+    {
+        return $this->publicationDate;
+    }
+    public function byline(): string
+    {
+        return $this->byline;
+    }
+    public function bookTitle(): Title
+    {
+        return $this->bookTitle;
+    }
+    public function bookAuthor(): AuthorName
+    {
+        return $this->bookAuthor;
+    }
+    public function summary(): string
+    {
+        return $this->summary;
+    }
 
-    /** @return ISBN[] */
-    public function isbn13(): array { return $this->isbn13; }
+    /**
+ * @return ISBN[]
+*/
+    public function isbn13(): array
+    {
+        return $this->isbn13;
+    }
 }

@@ -16,5 +16,7 @@ final class SearchHistoryResponse
         public int    $total,
         public Offset $offset,
         public array  $books
-    ) {}
+    )
+    {
+    }
 }

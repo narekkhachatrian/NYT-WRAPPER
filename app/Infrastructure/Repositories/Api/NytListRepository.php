@@ -7,14 +7,20 @@ namespace App\Infrastructure\Repositories\Api;
 use App\Domain\Books\Repositories\ListRepositoryInterface;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
-use App\Domain\Books\ValueObjects\{NytDate,ListIdentifier,Offset};
-use App\Domain\Books\Entities\{ListName,ListSnapshot};
+use App\Domain\Books\ValueObjects\NytDate;
+use App\Domain\Books\ValueObjects\ListIdentifier;
+use App\Domain\Books\ValueObjects\Offset;
+use App\Domain\Books\Entities\ListName;
+use App\Domain\Books\Entities\ListSnapshot;
 use App\Infrastructure\HttpClients\NytBooksApiClient;
-use App\Infrastructure\Mappers\{ListNameMapper,ListSnapshotMapper};
+use App\Infrastructure\Mappers\ListNameMapper;
+use App\Infrastructure\Mappers\ListSnapshotMapper;
 
 final readonly class NytListRepository implements ListRepositoryInterface
 {
-    public function __construct(private NytBooksApiClient $client) {}
+    public function __construct(private NytBooksApiClient $client)
+    {
+    }
 
     /**
      * @throws RequestException

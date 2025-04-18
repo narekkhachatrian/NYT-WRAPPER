@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HistorySearchHttpRequest;
 use App\Http\Resources\BookResource;
 use Illuminate\Http\JsonResponse;
-use App\UseCases\Books\SearchHistory\{SearchHistoryRequest,SearchHistoryInteractor};
+use App\UseCases\Books\SearchHistory\SearchHistoryRequest;
+use App\UseCases\Books\SearchHistory\SearchHistoryInteractor;
 
 class HistoryController extends Controller
 {
-    public function __construct(private readonly SearchHistoryInteractor $uc) {}
+    public function __construct(private readonly SearchHistoryInteractor $uc)
+    {
+    }
 
     public function search(HistorySearchHttpRequest $req): JsonResponse
     {

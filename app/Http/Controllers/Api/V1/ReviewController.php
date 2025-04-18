@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewSearchHttpRequest;
 use App\Http\Resources\ReviewResource;
-use App\UseCases\Books\GetReviews\{GetReviewsRequest,GetReviewsInteractor};
+use App\UseCases\Books\GetReviews\GetReviewsRequest;
+use App\UseCases\Books\GetReviews\GetReviewsInteractor;
 
 class ReviewController extends Controller
 {
-    public function __construct(private readonly GetReviewsInteractor $uc) {}
+    public function __construct(private readonly GetReviewsInteractor $uc)
+    {
+    }
 
     public function search(ReviewSearchHttpRequest $req)
     {

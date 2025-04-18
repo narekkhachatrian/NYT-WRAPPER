@@ -12,7 +12,9 @@ use App\Domain\Books\ValueObjects\Offset;
 
 interface ListRepositoryInterface
 {
-    /** @return ListName[] */
+    /**
+ * @return ListName[]
+*/
     public function allNames(): array;
 
     public function snapshot(

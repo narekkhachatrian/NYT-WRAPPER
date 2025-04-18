@@ -6,7 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class ListSnapshotHttpRequest extends FormRequest
 {
-    public function authorize(): bool { return true; }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
 
     public function rules(): array
@@ -15,7 +18,7 @@ final class ListSnapshotHttpRequest extends FormRequest
             'list'           => ['required', 'regex:/^[a-z0-9\-]+$/'],
             'published_date' => [
                 'sometimes',
-                function($attribute, $value, $fail) {
+                function ($attribute, $value, $fail) {
                     if ($value === 'current') {
                         return;
                     }
